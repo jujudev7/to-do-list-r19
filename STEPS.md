@@ -27,3 +27,12 @@ index.css :
 @tailwind base;  
 @tailwind components;  
 @tailwind utilities;
+
+https://tailwindcss.com/blog/automatic-class-sorting-with-prettier  
+pnpm install -D prettier prettier-plugin-tailwindcss  
+create .prettierrc :  
+{  
+"plugins": [
+"prettier-plugin-tailwindcss"
+]  
+}
