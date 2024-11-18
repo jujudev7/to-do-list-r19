@@ -2,10 +2,18 @@ import { useRef, useState } from "react";
 
 export default function App() {
   const [todos, setTodos] = useState([
-    { id: 1, text: "Manger" },
-    { id: 2, text: "Bouger" },
-    { id: 3, text: "Dormir" },
+    { id: 1, text: "Manger", checked: false },
+    { id: 2, text: "Bouger", checked: false },
+    { id: 3, text: "Dormir", checked: false },
   ]);
+
+  const toggleTodo = (id) => {
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+      ),
+    );
+  };
 
   const [draggedTodo, setDraggedTodo] = useState(null);
   const [lastMouseY, setLastMouseY] = useState(0);
@@ -143,7 +151,15 @@ export default function App() {
             onDragStart={(e) => onDragStart(e, todo)}
             className="mb-2 flex w-4/5 flex-1 items-center justify-between rounded-md border bg-slate-100 px-4 py-3 hover:bg-slate-200"
           >
-            <span>{todo.text}</span>
+            <div className="flex items-center gap-2">
+              <input
+                type="checkbox"
+                checked={todo.checked}
+                onChange={() => toggleTodo(todo.id)}
+                className="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500"
+              />
+              <span>{todo.text}</span>
+            </div>
             <button
               onClick={() => deleteTodo(todo.id)}
               className="rounded-md border border-zinc-800 bg-white p-1 text-sm"
@@ -153,6 +169,7 @@ export default function App() {
           </li>
         ))}
       </ul>
+      <div className="done"></div>
     </div>
   );
 }
